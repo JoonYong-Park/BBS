@@ -1,5 +1,7 @@
 package com.example.BBS.dto;
 
+import com.example.BBS.entity.Article;
+
 // 폼데이터를 받아올 그릇
 public class ArticleForm {
 
@@ -17,5 +19,10 @@ public class ArticleForm {
                 "title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 '}';
+    }
+
+    // DTO -> Entity
+    public Article toEntity() {
+        return new Article(null, title, content);
     }
 }
