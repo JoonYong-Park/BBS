@@ -2,10 +2,12 @@ package com.example.BBS.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity // DB가 해당 객체를 인식 가능
 @AllArgsConstructor
+@NoArgsConstructor // 기본 생성자
 @ToString
 public class Article {
 
@@ -16,6 +18,8 @@ public class Article {
     private String title;
     @Column
     private String content;
+
+
 
     /*// @AllArgsConstructor
     public Article(Long id, String title, String content) {
