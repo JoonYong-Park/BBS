@@ -2,6 +2,7 @@ package com.example.BBS.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor // 기본 생성자
 @ToString
+@Getter
 public class Article {
 
     @Id     //대표값 지정
@@ -18,6 +20,10 @@ public class Article {
     private String title;
     @Column
     private String content;
+
+/*    public Long getId() {
+        return id;
+    }*/
 
 
 

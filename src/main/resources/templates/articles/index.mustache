@@ -12,11 +12,13 @@
         {{#articleList}} <!-- 여러 데이터의 묶음이면 반복실행됨 -->
             <tr>
                 <th>{{id}}</th>
-                <td>{{title}}</td>
+                <td><a href ="/articles/{{id}}">{{title}}</a></td>
                 <td>{{content}}</td>
             </tr>
         {{/articleList}}
     </tbody>
 </table>
+
+<a href="/articles/new">New Article</a>
 
 {{>layouts/footer}}

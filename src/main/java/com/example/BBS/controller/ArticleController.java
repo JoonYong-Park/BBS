@@ -44,7 +44,7 @@ public class ArticleController {
         log.info(saved.toString());
 
         // 3. view page
-        return "";
+        return "redirect:/articles/" + saved.getId();
     }
 
     // 데이터 조회하기
