@@ -69,6 +69,16 @@ public class ArticleApiController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
+    // 트랜젝션(반드시 성공해야하는 일련의 과정) -> 실패시 롤백
+    @PostMapping("/api/transaction-test")
+    public ResponseEntity<List<Article>> transactionTest(@RequestBody List<ArticleForm> dtos) { // 여러개의 게시글을 생성
+        List<Article> createdList = articleService.createArticles(dtos);
+        return (createdList != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(createdList) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+
 ///////////////////////////// RestController(Controller, Service) + JpaRepository /////////////////////////////
 //    // 레파지토리를 주입받음
 //    @Autowired // DI

@@ -3,14 +3,17 @@ package com.example.BBS.Service;
 import com.example.BBS.dto.ArticleForm;
 import com.example.BBS.entity.Article;
 import com.example.BBS.repository.ArticleRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service // 서비스 선언! (서비스 객체를 스프링부트에 생성
@@ -68,5 +71,39 @@ public class ArticleService {
 
     public void deleteAll() {
         articleRepository.deleteAll();
+    }
+
+    // 트랜젝션(롤백 맛보기)
+    @Transactional // 해당 메소드를 트랜젝션으로 묶는다.(모두 성공하거나, 모두 실패하거나 - 롤백)
+    public List<Article> createArticles(List<ArticleForm> dtos) {
+        // dto 묶음을 entity 묶음으로 변환
+        List<Article> articleList = dtos.stream()
+                .map(dto -> dto.toEntity())
+                .collect(Collectors.toList());
+
+        // 위 코드를 for문 으로 작성 하면
+        /*List<Article> articleList = new ArrayList<>();
+        for (int i = 0; i < dtos.size(); i++) {
+            ArticleForm dto = dtos.get(i);
+            Article article = dto.toEntity();
+            articleList.add(article);
+        }*/
+
+        // entity 묶음을 DB에 저장
+        articleList.stream()
+                .forEach(article -> articleRepository.save(article));
+        // 위 코드를 for문 으로 작성 하면
+        /*for (int i = 0; i < articleList.size(); i++) {
+            Article article = articleList.get(i);
+            articleRepository.save(article);
+        }*/
+
+        // 강제 예외 발생
+        articleRepository.findById(-1L).orElseThrow(
+                () -> new IllegalArgumentException("강제 예외 발생!")
+        );
+
+        // 결과값 반환
+        return articleList;
     }
 }
