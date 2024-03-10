@@ -20,7 +20,7 @@ import java.util.List;
 public class ArticleController {
 
     // 레파지토리를 주입받음
-    @Autowired // 스프링부트가 미리 생성해놓은 객체를 가져다가 자동 연결!
+    @Autowired // 스프링부트가 미리 생성해놓은 객체를 가져다가 자동 연결!(DI)
     private ArticleRepository articleRepository; // 데이터를 가져오는 역할
 
     // 폼 페이지 보여주기
